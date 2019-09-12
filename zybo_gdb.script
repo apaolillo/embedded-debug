@@ -1,0 +1,31 @@
+target remote : 3333
+monitor gdb_breakpoint_override hard
+
+define dispi
+    display/i $pc
+end
+document dispi
+    Display the current instruction
+    Usage: dispi
+end
+
+define reset
+    shell bash deploy/deployForDebug.sh
+
+    # Resynchronize GDB with the GDB server
+    monitor halt
+    monitor gdb_sync
+    monitor cortex_a maskisr on
+
+    cont
+end
+document reset
+    Reset the target.
+    Usage: reset
+end
+
+alias -a reg = info registers
+
+dispi
+break stage3
+reset
