@@ -9,23 +9,25 @@ document dispi
     Usage: dispi
 end
 
-define reset
-    shell bash deploy/deployForDebug.sh
-
+define resync
     # Resynchronize GDB with the GDB server
     monitor halt
     monitor gdb_sync
     monitor cortex_a maskisr on
 
+    shell echo "bootm 0x12100000" > /dev/ttyUSB1
+
     cont
 end
-document reset
-    Reset the target.
-    Usage: reset
+document resync
+    Resynchronize GDB with the GDB server
+    Usage: resync
 end
 
 alias -a reg = info registers
 
 dispi
-break stage3
-reset
+
+break start
+
+resync
