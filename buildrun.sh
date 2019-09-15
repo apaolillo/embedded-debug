@@ -2,11 +2,15 @@
 set -e
 
 IMAGE_TAG=jtagdebug
+CONTAINER_NAME=embedded-debug
+
 docker build -t $IMAGE_TAG .
 docker run \
     --rm \
     -ti \
-    --name debug-container \
+    --name $CONTAINER_NAME \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
-    $IMAGE_TAG
-# TODO check if not too much (mounting usb volume), how did we do for hipp?
+    $IMAGE_TAG \
+    $@
+
+# TODO check per-device privilege

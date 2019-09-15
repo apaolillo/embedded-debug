@@ -1,4 +1,12 @@
 #!/bin/bash
 set -e
 
-docker exec -ti debug-container bash
+CONTAINER_NAME=embedded-debug
+
+if [[ -z $@ ]]; then
+    cmd=bash
+else
+    cmd=$@
+fi
+
+docker exec -ti $CONTAINER_NAME ${cmd}
