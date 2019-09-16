@@ -15,7 +15,7 @@ define resync
     monitor gdb_sync
     monitor cortex_a maskisr on
 
-    shell echo "bootm 0x12100000" > /dev/ttyUSB1
+    shell stty -F /dev/ttyUSB1 115200 cs8 && echo "bootm 0x12100000" > /dev/ttyUSB1
 
     cont
 end
