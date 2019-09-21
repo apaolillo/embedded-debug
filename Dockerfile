@@ -35,7 +35,7 @@ RUN mkdir -p /etc/udev/rules.d/ \
     && cp /lib/udev/rules.d/60-openocd.rules /etc/udev/rules.d/60-openocd.rules
 
 # Update OpenOCD probe config file to match actual USB identifiers of Zybo board
-RUN sed -is "s/0x6014/0x6010/" /usr/share/openocd/scripts/interface/ftdi/digilent_jtag_smt2.cfg
+RUN sed -i "s/0x6014/0x6010/" /usr/share/openocd/scripts/interface/ftdi/digilent_jtag_smt2.cfg
 
 # Set workspace directory
 ARG WORKDIR=/workspace
